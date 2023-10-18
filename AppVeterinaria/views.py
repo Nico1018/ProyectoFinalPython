@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from AppVeterinaria.models import Veterinario
 
 # Create your views here.
 
@@ -18,3 +19,17 @@ def persona(request):
 
 def inicio(request):
     return render(request, "AppVeterinaria/index.html")
+
+
+def formularioVeterinario(request):
+    if request.method == "POST":
+        mi_formulario_veterinario = Veterinario(
+            nombre_vet=request.POST["nombre_vet"],
+            apellido_Vet=request.POST["apellido_Vet"],
+        )
+
+        mi_formulario_veterinario.save()
+
+        return render(request, "AppVeterinaria/index.html")
+
+    return render(request, "AppVeterinaria/veterinarioformulario.html")

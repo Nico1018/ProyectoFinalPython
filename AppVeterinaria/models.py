@@ -16,12 +16,12 @@ class Animal(models.Model):
 
 
 class Veterinario(models.Model):
-    veterinario = models.CharField(max_length=20)
-    apellidoVet = models.CharField(max_length=40)
+    nombre_vet = models.CharField(max_length=20)
+    apellido_Vet = models.CharField(max_length=40)
     matricula = models.CharField(max_length=40)
 
     def __str__(self):
-        return f"Veterinario: {self.veterinario} - ApellidoVet: {self.apellidoVet} - Matricula: {self.matricula}"
+        return f"Veterinario: {self.nombre_vet} - ApellidoVet: {self.apellido_Vet} - Matricula: {self.matricula}"
 
 
 class Persona(models.Model):

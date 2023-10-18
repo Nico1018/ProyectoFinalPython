@@ -1,9 +1,10 @@
 from django.urls import path
-from .views import animal, veterinario, persona, inicio
+from AppVeterinaria import views
 
 urlpatterns = [
-    path("animal/", animal, name="mascotas"),
-    path("veterinario/", veterinario, name="veterinarios"),
-    path("persona/", persona, name="personas"),
-    path("", inicio, name="inicio"),
+    path("animal/", views.animal, name="mascotas"),
+    path("veterinario/", views.veterinario, name="veterinarios"),
+    path("persona/", views.persona, name="personas"),
+    path("", views.inicio, name="inicio"),
+    path("form/", views.formularioVeterinario, name="formulario"),
 ]
