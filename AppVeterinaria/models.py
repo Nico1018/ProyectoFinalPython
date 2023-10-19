@@ -17,11 +17,11 @@ class Animal(models.Model):
 
 class Veterinario(models.Model):
     nombre_vet = models.CharField(max_length=20)
-    apellido_Vet = models.CharField(max_length=40)
+    apellido_vet = models.CharField(max_length=40)
     matricula = models.CharField(max_length=40)
 
     def __str__(self):
-        return f"Veterinario: {self.nombre_vet} - ApellidoVet: {self.apellido_Vet} - Matricula: {self.matricula}"
+        return f"Veterinario: {self.nombre_vet} - ApellidoVet: {self.apellido_vet} - Matricula: {self.matricula}"
 
 
 class Persona(models.Model):

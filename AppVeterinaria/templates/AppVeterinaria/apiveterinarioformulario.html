@@ -1,0 +1,17 @@
+{% extends "AppVeterinaria/base NAVYFoot.html" %}
+{% load static %}
+
+{% block title %} Formulario {% endblock title %}
+
+{% block herencia %}
+    <form action="" method="POST"> 
+        {% csrf_token %}
+        
+        <table>
+            {{ miFormulario.as_table }}
+        </table>
+        
+        
+        <input type="submit" value="Guardar Veterinario">
+    </form>
+{% endblock %}

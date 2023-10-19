@@ -6,5 +6,10 @@ urlpatterns = [
     path("veterinario/", views.veterinario, name="veterinarios"),
     path("persona/", views.persona, name="personas"),
     path("", views.inicio, name="inicio"),
-    path("form/", views.formularioVeterinario, name="formulario"),
+    path("veterinarioform/", views.formularioVeterinario, name="veterinarioformulario"),
+    path(
+        "apiveterinarioform/",
+        views.apiFormularioVeterinario,
+        name="apiveterinarioformulario",
+    ),
 ]
