@@ -26,6 +26,7 @@ def formularioVeterinario(request):
         mi_formulario_veterinario = Veterinario(
             nombre_vet=request.POST["nombre_vet"],
             apellido_Vet=request.POST["apellido_Vet"],
+            matricula=request.POST["matricula"],
         )
 
         mi_formulario_veterinario.save()
