@@ -1,0 +1,15 @@
+{% extends 'AppVeterinaria/base NavYFoot.html' %}
+
+{% load static %}
+
+{% block herencia %}
+
+    <h2>{{ mensaje }}</h2>
+
+    <form action="" method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Inciar sesion</button>
+    </form>
+
+{% endblock %}

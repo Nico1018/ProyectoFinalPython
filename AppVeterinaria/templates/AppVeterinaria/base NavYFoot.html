@@ -26,7 +26,8 @@
                 <a class="navbar-brand" href="{% url 'veterinarios' %}">Veterinario</a>
                 <a class="navbar-brand" href="{% url 'mascotas' %}">Mascota</a>
                 <a class="navbar-brand" href="{% url 'personas' %}">Dueño</a>
-                <a class="btn btn-primary" href="#signup">Sign Up</a>
+                <a class="btn btn-primary" href="{% url 'Register' %}">Sign Up</a>
+                <a class="btn btn-primary" href="{% url 'Login' %}">log in</a>
             </div>
         </nav>
         <!-- Masthead-->
@@ -45,6 +46,8 @@
                             <!-- To make this form functional, sign up at-->
                             <!-- https://startbootstrap.com/solution/contact-forms-->
                             <!-- to get an API token!-->
+
+                            <h1>{{ mensaje }}</h1>
                             <form class="form-subscribe" id="contactForm" data-sb-form-api-token="API_TOKEN">
                                 <!-- Email address input-->
                                         <div class="invalid-feedback text-white" data-sb-feedback="emailAddress:required">Email Address is required.</div>
