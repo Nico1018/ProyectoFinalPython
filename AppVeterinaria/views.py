@@ -20,6 +20,7 @@ def animal(request):
     return render(request, "AppVeterinaria/animal.html")
 
 
+@login_required
 def apiFormularioAnimal(request):
     if request.method == "POST":
         miFormulario = AnimalFormulario(request.POST)
@@ -47,11 +48,13 @@ def apiFormularioAnimal(request):
     )
 
 
+@login_required
 def lista_animales(request):
     animales = Animal.objects.all()
     return render(request, "AppVeterinaria/listaAnimal.html", {"animales": animales})
 
 
+@login_required
 def eliminar_animal(request, animal_id):
     animal = Animal.objects.get(id=animal_id)
     animal.delete()
@@ -59,6 +62,7 @@ def eliminar_animal(request, animal_id):
     return lista_animales(request)
 
 
+@login_required
 def editar_animal(request, animal_id):
     if request.method == "POST":
         miFormulario = AnimalFormulario(request.POST)
@@ -100,6 +104,7 @@ def persona(request):
     return render(request, "AppVeterinaria/persona.html")
 
 
+@login_required
 def apiFormularioPersona(request):
     if request.method == "POST":
         miFormulario = PersonaFormulario(request.POST)
@@ -113,7 +118,7 @@ def apiFormularioPersona(request):
                 telefono=informacion["telefono"],
             )
             persona.save()
-            return render(request, "AppVeterinaria/persona.html")
+            return render(request, "AppVeterinaria/index.html")
     else:
         miFormulario = PersonaFormulario()
 
@@ -124,11 +129,13 @@ def apiFormularioPersona(request):
     )
 
 
+@login_required
 def lista_personas(request):
     personas = Persona.objects.all()
     return render(request, "AppVeterinaria/listapersonas.html", {"personas": personas})
 
 
+@login_required
 def eliminar_persona(request, persona_id):
     persona = Persona.objects.get(id=persona_id)
     persona.delete()
@@ -136,6 +143,7 @@ def eliminar_persona(request, persona_id):
     return lista_personas(request)
 
 
+@login_required
 def editar_persona(request, persona_id):
     if request.method == "POST":
         miFormulario = PersonaFormulario(request.POST)
@@ -180,6 +188,7 @@ def veterinario(request):
     return render(request, "AppVeterinaria/veterinario.html")
 
 
+@login_required
 def apiFormularioVeterinario(request):
     if request.method == "POST":
         miFormulario = VeterinarioFormulario(request.POST)
@@ -193,7 +202,7 @@ def apiFormularioVeterinario(request):
                 matricula=informacion["matricula"],
             )
             veterinario.save()
-            return render(request, "AppVeterinaria/veterinario.html")
+            return render(request, "AppVeterinaria/listaveterinarios.html")
     else:
         miFormulario = VeterinarioFormulario()
 
@@ -204,6 +213,7 @@ def apiFormularioVeterinario(request):
     )
 
 
+@login_required
 def lista_veterinarios(request):
     veterinarios = Veterinario.objects.all()
     return render(
@@ -211,6 +221,7 @@ def lista_veterinarios(request):
     )
 
 
+@login_required
 def eliminar_veterinario(request, veterinario_id):
     veterinario = Veterinario.objects.get(id=veterinario_id)
     veterinario.delete()
@@ -218,6 +229,7 @@ def eliminar_veterinario(request, veterinario_id):
     return lista_veterinarios(request)
 
 
+@login_required
 def editar_veterinario(request, veterinario_id):
     if request.method == "POST":
         miFormulario = VeterinarioFormulario(request.POST)
