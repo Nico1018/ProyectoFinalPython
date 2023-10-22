@@ -23,11 +23,13 @@
         <nav class="navbar navbar-light bg-light static-top">
             <div class="container">
                 <a class="navbar-brand" href="{% url 'inicio' %}">Inicio</a>
-                <a class="navbar-brand" href="{% url 'veterinarios' %}">Veterinario</a>
-                <a class="navbar-brand" href="{% url 'mascotas' %}">Mascota</a>
-                <a class="navbar-brand" href="{% url 'personas' %}">Dueño</a>
+                <a class="navbar-brand" href="{% url 'ListaVeterinarios' %}">Veterinario</a>
+                <a class="navbar-brand" href="{% url 'ListaAnimales' %}">Mascota</a>
+                <a class="navbar-brand" href="{% url 'ListaPersonas' %}">Dueño</a>
+                <a class="navbar-brand" href="{% url 'About' %}">Acerca De Mi</a>
                 <a class="btn btn-primary" href="{% url 'Register' %}">Sign Up</a>
                 <a class="btn btn-primary" href="{% url 'Login' %}">Log In</a>
+                <a class="btn btn-primary" href="{% url 'Logout' %}">Log out</a>
             </div>
         </nav>
         <!-- Masthead-->

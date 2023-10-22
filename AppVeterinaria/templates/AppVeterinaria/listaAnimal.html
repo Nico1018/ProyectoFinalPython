@@ -1,0 +1,21 @@
+{% extends 'AppVeterinaria/base NavYFoot.html' %}
+
+{% load static %}
+
+{% block herencia %}
+<h1>Mascotas.</h1>
+<ul>
+    {% for a in animales %}
+        <li>{{a}}</li>
+        <button>
+            <a href="{% url 'EliminarAnimal' a.id %}">Borrar| </a>
+            <a href="{% url 'EditarAnimal' a.id %}">Editar </a>
+        </button>
+        <br>
+    {% endfor %}
+    </ul>
+
+{% endblock %}
+
+
+

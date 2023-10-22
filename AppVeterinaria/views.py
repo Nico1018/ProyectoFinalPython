@@ -1,6 +1,11 @@
 from django.shortcuts import render
-from AppVeterinaria.models import Veterinario
-from AppVeterinaria.forms import VeterinarioFormulario, UserRegisterForm
+from AppVeterinaria.models import Veterinario, Animal, Persona
+from AppVeterinaria.forms import (
+    VeterinarioFormulario,
+    AnimalFormulario,
+    PersonaFormulario,
+    UserRegisterForm,
+)
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
@@ -15,10 +20,152 @@ def animal(request):
     return render(request, "AppVeterinaria/animal.html")
 
 
+def apiFormularioAnimal(request):
+    if request.method == "POST":
+        miFormulario = AnimalFormulario(request.POST)
+        print(miFormulario)
+
+        if miFormulario.is_valid():
+            informacion = miFormulario.cleaned_data
+            animal = Animal(
+                nombreAnimal=informacion["nombreAnimal"],
+                edad=informacion["edad"],
+                tipo=informacion["tipo"],
+                motivo=informacion["motivo"],
+                fecha=informacion["fecha"],
+                costo=informacion["costo"],
+            )
+            animal.save()
+            return render(request, "AppVeterinaria/animal.html")
+    else:
+        miFormulario = AnimalFormulario()
+
+    return render(
+        request,
+        "AppVeterinaria/apianimalformulario.html",
+        {"miFormulario": miFormulario},
+    )
+
+
+def lista_animales(request):
+    animales = Animal.objects.all()
+    return render(request, "AppVeterinaria/listaAnimal.html", {"animales": animales})
+
+
+def eliminar_animal(request, animal_id):
+    animal = Animal.objects.get(id=animal_id)
+    animal.delete()
+
+    return lista_animales(request)
+
+
+def editar_animal(request, animal_id):
+    if request.method == "POST":
+        miFormulario = AnimalFormulario(request.POST)
+        print(miFormulario)
+
+        if miFormulario.is_valid():
+            informacion = miFormulario.cleaned_data
+
+            animal = Animal.objects.get(id=animal_id)
+            animal.nombreAnimal = informacion["nombreAnimal"]
+            animal.edad = informacion["edad"]
+            animal.tipo = informacion["tipo"]
+            animal.motivo = informacion["motivo"]
+            animal.fecha = informacion["fecha"]
+            animal.costo = informacion["costo"]
+            animal.save()
+
+            return render(request, "AppVeterinaria/index.html")
+    else:
+        animal = Animal.objects.get(id=animal_id)
+        miFormulario = AnimalFormulario(
+            initial={
+                "nombreAnimal": animal.nombreAnimal,
+                "edad": animal.edad,
+                "tipo": animal.tipo,
+            }
+        )
+
+    return render(
+        request,
+        "AppVeterinaria/apianimalformulario.html",
+        {"miFormulario": miFormulario},
+    )
+
+
 # ------------------persona----------------------------#
 @login_required
 def persona(request):
     return render(request, "AppVeterinaria/persona.html")
+
+
+def apiFormularioPersona(request):
+    if request.method == "POST":
+        miFormulario = PersonaFormulario(request.POST)
+        print(miFormulario)
+
+        if miFormulario.is_valid():
+            informacion = miFormulario.cleaned_data
+            persona = Persona(
+                nombre=informacion["nombre"],
+                apellido=informacion["apellido"],
+                telefono=informacion["telefono"],
+            )
+            persona.save()
+            return render(request, "AppVeterinaria/persona.html")
+    else:
+        miFormulario = PersonaFormulario()
+
+    return render(
+        request,
+        "AppVeterinaria/apipersonaformulario.html",
+        {"miFormulario": miFormulario},
+    )
+
+
+def lista_personas(request):
+    personas = Persona.objects.all()
+    return render(request, "AppVeterinaria/listapersonas.html", {"personas": personas})
+
+
+def eliminar_persona(request, persona_id):
+    persona = Persona.objects.get(id=persona_id)
+    persona.delete()
+
+    return lista_personas(request)
+
+
+def editar_persona(request, persona_id):
+    if request.method == "POST":
+        miFormulario = PersonaFormulario(request.POST)
+        print(miFormulario)
+
+        if miFormulario.is_valid():
+            informacion = miFormulario.cleaned_data
+
+            persona = Persona.objects.get(id=persona_id)
+            persona.nombre = informacion["nombre"]
+            persona.apellido = informacion["apellido"]
+            persona.telefono = informacion["telefono"]
+            persona.save()
+
+            return render(request, "AppVeterinaria/index.html")
+    else:
+        persona = Persona.objects.get(id=persona_id)
+        miFormulario = PersonaFormulario(
+            initial={
+                "nombre": persona.nombre,
+                "apellido": persona.apellido,
+                "telefono": persona.telefono,
+            }
+        )
+
+    return render(
+        request,
+        "AppVeterinaria/apipersonaformulario.html",
+        {"miFormulario": miFormulario},
+    )
 
 
 # ------------------inicio--------------------------#
@@ -46,7 +193,7 @@ def apiFormularioVeterinario(request):
                 matricula=informacion["matricula"],
             )
             veterinario.save()
-            return render(request, "AppVeterinaria/index.html")
+            return render(request, "AppVeterinaria/veterinario.html")
     else:
         miFormulario = VeterinarioFormulario()
 
@@ -57,21 +204,21 @@ def apiFormularioVeterinario(request):
     )
 
 
-def read_comun(request):
+def lista_veterinarios(request):
     veterinarios = Veterinario.objects.all()
     return render(
-        request, "AppVeterinaria/read_comun.html", {"veterinarios": veterinarios}
+        request, "AppVeterinaria/listaveterinarios.html", {"veterinarios": veterinarios}
     )
 
 
-def delete_comun(request, veterinario_id):
+def eliminar_veterinario(request, veterinario_id):
     veterinario = Veterinario.objects.get(id=veterinario_id)
     veterinario.delete()
 
-    return read_comun(request)
+    return lista_veterinarios(request)
 
 
-def edit_comun(request, veterinario_id):
+def editar_veterinario(request, veterinario_id):
     if request.method == "POST":
         miFormulario = VeterinarioFormulario(request.POST)
         print(miFormulario)
@@ -162,3 +309,8 @@ def register(request):
         form = UserRegisterForm()
 
     return render(request, "AppVeterinaria/register.html", {"form": form})
+
+
+# ----------------------------about------------------#
+def about(request):
+    return render(request, "AppVeterinaria/about.html")
