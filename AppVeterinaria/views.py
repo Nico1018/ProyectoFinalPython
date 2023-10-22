@@ -1,10 +1,11 @@
 from django.shortcuts import render
-from AppVeterinaria.models import Veterinario, Animal, Persona
+from AppVeterinaria.models import Veterinario, Animal, Persona, Avatar
 from AppVeterinaria.forms import (
     VeterinarioFormulario,
     AnimalFormulario,
     PersonaFormulario,
     UserRegisterForm,
+    UserEditForm,
 )
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth import login, logout, authenticate
@@ -182,7 +183,8 @@ def editar_persona(request, persona_id):
 # ------------------inicio--------------------------#
 @login_required
 def inicio(request):
-    return render(request, "AppVeterinaria/index.html")
+    avatar = Avatar.objects.filter(user=request.user.id)[0]
+    return render(request, "AppVeterinaria/index.html", {"url": avatar})
 
 
 # ---------------veterinario-------------------#
@@ -329,3 +331,40 @@ def register(request):
 # ----------------------------about------------------#
 def about(request):
     return render(request, "AppVeterinaria/about.html")
+
+
+# ---------------------------edit user---------------#
+@login_required
+def edit(request):
+    usuario = request.user
+
+    if request.method == "POST":
+        miFormulario = UserEditForm(request.POST)
+
+        if miFormulario.is_valid():
+            informacion = miFormulario.cleaned_data
+
+            usuario.email = informacion["email"]
+            usuario.password1 = informacion["password1"]
+            usuario.password2 = informacion["password2"]
+            usuario.last_name = informacion["last_name"]
+            usuario.first_name = informacion["first_name"]
+
+            usuario.save()
+
+            return render(request, "AppVeterinaria/index.html")
+
+    else:
+        datos = {
+            "email": usuario.email,
+            "first_name": usuario.first_name,
+            "username": usuario.username,
+            "last_name": usuario.last_name,
+        }
+        miFormulario = UserEditForm(initial=datos)
+
+    return render(
+        request,
+        "AppVeterinaria/edit.html",
+        {"mi_form": miFormulario, "usuario": usuario},
+    )

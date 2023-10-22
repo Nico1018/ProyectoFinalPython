@@ -8,7 +8,7 @@
     {% for p in personas %}
         <li>{{p}}</li>
         <button>
-            <a href="{% url 'EliminarPersona' p.id %}">Borrar| </a>
+            <a href="{% url 'EliminarPersona' p.id %}">Eliminar| </a>
             <a href="{% url 'EditarPersona' p.id %}">Editar </a>
         </button>
         <br>

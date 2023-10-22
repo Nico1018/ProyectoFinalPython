@@ -1,0 +1,20 @@
+{% extends 'AppVeterinaria/base NavYFoot.html' %}
+
+{% load static %}
+
+{% block herencia %}
+
+    <form action="" method="POST">
+        {% csrf_token %}
+        <table>
+
+            {{ mi_form.as_table }}
+            <input type="submit" value="Actualizar">
+
+        </table>
+
+
+
+    </form>
+
+{% endblock %}
