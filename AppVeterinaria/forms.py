@@ -22,6 +22,7 @@ class PersonaFormulario(forms.Form):
     nombre = forms.CharField(max_length=40)
     apellido = forms.CharField(max_length=40)
     telefono = forms.IntegerField()
+    dni = forms.IntegerField()
 
 
 class UserRegisterForm(UserCreationForm):

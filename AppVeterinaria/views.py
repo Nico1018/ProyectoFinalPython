@@ -37,7 +37,7 @@ def apiFormularioAnimal(request):
                 costo=informacion["costo"],
             )
             animal.save()
-            return render(request, "AppVeterinaria/animal.html")
+            return render(request, "AppVeterinaria/index.html")
     else:
         miFormulario = AnimalFormulario()
 
@@ -116,6 +116,7 @@ def apiFormularioPersona(request):
                 nombre=informacion["nombre"],
                 apellido=informacion["apellido"],
                 telefono=informacion["telefono"],
+                dni=informacion["dni"],
             )
             persona.save()
             return render(request, "AppVeterinaria/index.html")
@@ -156,6 +157,7 @@ def editar_persona(request, persona_id):
             persona.nombre = informacion["nombre"]
             persona.apellido = informacion["apellido"]
             persona.telefono = informacion["telefono"]
+            persona.dni = informacion["dni"]
             persona.save()
 
             return render(request, "AppVeterinaria/index.html")
@@ -166,6 +168,7 @@ def editar_persona(request, persona_id):
                 "nombre": persona.nombre,
                 "apellido": persona.apellido,
                 "telefono": persona.telefono,
+                "dni": persona.dni,
             }
         )
 

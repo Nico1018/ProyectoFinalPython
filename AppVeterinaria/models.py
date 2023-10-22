@@ -28,6 +28,7 @@ class Persona(models.Model):
     nombre = models.CharField(max_length=40)
     apellido = models.CharField(max_length=40)
     telefono = models.IntegerField()
+    dni = models.IntegerField()
 
     def __str__(self):
-        return f"Nombre: {self.nombre} - Apellido: {self.apellido} - Telefono: {self.telefono} "
+        return f"Nombre: {self.nombre} - Apellido: {self.apellido} - Telefono: {self.telefono} - dni:{self.dni}"
